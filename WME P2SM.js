@@ -9,8 +9,8 @@
 // ==/UserScript==
 
 // Mini howto:
-// 1) install this script as greasemonkey script or chrome extension
-// 2) Click on Google Maps Permalink on the sidebar
+// 1) install this fork of the script as github script
+// 2) Click on the different maps permalink on the sidebar
 
 var p2sm_version = "2.00.08.54/13";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
