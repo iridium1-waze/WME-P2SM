@@ -2,17 +2,17 @@
 // @name        WME Permalink to several Maps
 // @description This script create buttons to permalink page on several Maps.
 // @namespace   http://members.aon.at/aneumeister/scripts/waze/testmaps.user.js
-// @version     2.00.08.54
+// @version     2.00.08.54/14
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @grant       none
 // ==/UserScript==
 
 // Mini howto:
-// 1) install this fork of the script as github script
-// 2) Click on the different maps permalink on the sidebar
+// 1) install this script as GitHub script
+// 2) Click on Google Maps Permalink on the sidebar
 
-var p2sm_version = "2.00.08.54/13";
+var p2sm_version = "2.00.08.54/14";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -27,6 +27,7 @@ var p2sm_version = "2.00.08.54/13";
 //11: Removed ito (no longer available), added Waze Reporting Tool - thanks to abusimbel!
 //12: Added OpenStreetCam
 //13: Added OpenStreet Browser (SL layer), BellHouse, Bug fixes
+//14: Icon Fix, Maintaining script from GitHub
 
 if ('undefined' == typeof __RTLM_PAGE_SCOPE_RUN__) {
   (function page_scope_runner()
@@ -117,7 +118,7 @@ btn0.click(function(){
     window.open(mapsUrl);
 });
 
-var btn1 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/pMQsnx);background-repeat: no-repeat;border-radius: 7px">Google</button>');
+var btn1 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/3bltdQi);background-repeat: no-repeat;border-radius: 7px">Google</button>');
 btn1.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -143,7 +144,7 @@ btn5.click(function(){
     window.open(mapsUrl,'_blank');
 });
 
-var btn2 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/jRUYS7);background-repeat: no-repeat;border-radius: 7px">  Bing</button>');
+var btn2 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2ESClzU);background-repeat: no-repeat;border-radius: 7px">  Bing</button>');
 btn2.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -169,7 +170,7 @@ btn3.click(function(){
     window.open(mapsUrl,'_blank');
 });
 
-var btn3a = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/6grwS0);background-repeat: no-repeat;border-radius: 7px">OSM</button>');
+var btn3a = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/3jCiB2j);background-repeat: no-repeat;border-radius: 7px">OSM</button>');
 btn3a.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -265,7 +266,7 @@ btn8.click(function(){
 });
 
 // http://www.viamichelin.com/print/map?latitude=48.2638198&longitude=16.423198&zoom=16&address=&departure&arrival
-var btn9 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/Kiq6e9);background-repeat: no-repeat;border-radius: 7px"">  ViaM</button>');
+var btn9 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/3hSLI0O);background-repeat: no-repeat;border-radius: 7px"">  ViaM</button>');
 btn9.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -285,7 +286,7 @@ btn9.click(function(){
 });
 
 // https://maps.here.com/?map=53.24623,7.77117,18,satellite
-var btn10 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/ud2nds);background-repeat: no-repeat;border-radius: 7px"">  Here</button>');
+var btn10 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2YZi7eS);background-repeat: no-repeat;border-radius: 7px"">  Here</button>');
 btn10.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -304,7 +305,7 @@ btn10.click(function(){
 
 // https://www.mapillary.com/app/?lat=49.97940953634415&lng=9.127301585621836&z=14.19223566766781&focus=map
 
-var btn11 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkGreen;background-image: url(https://goo.gl/JsMWgB);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;&nbsp;Mapillary</button>');
+var btn11 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkGreen;background-image: url(https://bit.ly/2DlCYBo);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;&nbsp;Mapillary</button>');
 btn11.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -327,7 +328,7 @@ btn11.click(function(){
 });
 
 // https://www.openstreetbrowser.org/#map=18/51.18321/6.71228&categories=car_maxspeed
-var btn12 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkGreen;background-image: url(https://bit.ly/2OgKrF0);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;OSBrowser</button>');
+var btn12 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkGreen;background-image: url(https://bit.ly/2Gfre4s);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;OSBrowser</button>');
 btn12.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -342,7 +343,7 @@ btn12.click(function(){
 });
 
 // https://en.mappy.com/#/12/M2/THome/N0,0,15.69021,48.4738/Z19/
-var btn13 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/C6dDWt);background-repeat: no-repeat;border-radius: 7px">  Mappy</button>');
+var btn13 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2EVea3B);background-repeat: no-repeat;border-radius: 7px">  Mappy</button>');
 btn13.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -357,7 +358,7 @@ btn13.click(function(){
 });
 
 // http://map.scdb.info/speedcameramap/ll/51.563412,9.997559/z/12
-var btn14 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://goo.gl/EmkmMd);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;SpeedCam</button>');
+var btn14 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/2QNtBha);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;&nbsp;SpeedCam</button>');
 btn14.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -372,7 +373,7 @@ btn14.click(function(){
 });
 
 // http://beta.map1.eu/#zoom=14&lat=47.66229&lon=14.48784&layers=BT
-var btn15 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://goo.gl/oHs6b5);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;map1</button>');
+var btn15 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/32SEDax);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;map1</button>');
 btn15.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -388,7 +389,7 @@ btn15.click(function(){
 
 
 // https://geoportal.bayern.de/bayernatlas/index.html?zoom=9&lang=de&topic=ba&bgLayer=atkis&catalogNodes=11,122&E=639436.74&N=5324591.68
-var btn16 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://goo.gl/5SWMgq);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;BY Atlas</button>');
+var btn16 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://bit.ly/2YXn1sK);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;BY Atlas</button>');
 btn16.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -416,7 +417,7 @@ btn16.click(function(){
 });
 
 // https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=13&layers=B0T&lat=5333718.98151&lon=688932.96544
-var btn19 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://goo.gl/Wvoggm);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;WebAtlas</button>');
+var btn19 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://bit.ly/2QJJ8OZ);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;WebAtlas</button>');
 btn19.click(function(){
    var href = $('.WazeControlPermalink a').attr('href');
 
@@ -444,7 +445,7 @@ btn19.click(function(){
 });
 
 // http://frink.bplaced.de/blitzer/#map=11/51.9026/10.5036
-var btn17 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://goo.gl/EmkmMd);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px">&nbsp;  OSM-Blitzer</button>');
+var btn17 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/2QNtBha);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px">&nbsp;  OSM-Blitzer</button>');
 btn17.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -459,7 +460,7 @@ btn17.click(function(){
 });
 
     // https://mydrive.tomtom.com/de_de/#mode=viewport+viewport=49.76137,9.70753,15,0,-0+ver=3
-var btn18 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2LRNCDq);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="TomTom">&nbsp;  TomTom</button>');
+var btn18 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2QJPZry);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="TomTom">&nbsp;  TomTom</button>');
 btn18.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -474,7 +475,7 @@ btn18.click(function(){
 });
 
     // Waze Reportingtool: https://www.waze.com/reporting/location?lat=49.50939698036761&lng=6.743288040161134&zoom=16
-    var btn20 = $('<button style="width: 90px;height: 24px;font-size:90%;color: LightSeaGreen;background-image: url(https://bit.ly/2KhZRX7);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="Reporting">&nbsp;  Reporting</button>');
+    var btn20 = $('<button style="width: 90px;height: 24px;font-size:90%;color: LightSeaGreen;background-image: url(https://bit.ly/3jEtjWg);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="Reporting">&nbsp;  Reporting</button>');
 btn20.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -488,7 +489,7 @@ btn20.click(function(){
 });
 
     // https://openstreetcam.org/map/@48.110432829485546,11.527876853942873,16z
-var btn21 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/2yJg5BZ);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;   OSCam</button>');
+var btn21 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/2QIT0bI);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;   OSCam</button>');
 btn21.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
