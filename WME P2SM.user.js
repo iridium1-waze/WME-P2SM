@@ -27,7 +27,7 @@ var p2sm_version = "2.00.08.54/14";
 //11: Removed ito (no longer available), added Waze Reporting Tool - thanks to abusimbel!
 //12: Added OpenStreetCam
 //13: Added OpenStreet Browser (SL layer), BellHouse, Bug fixes
-//14: Icon Fix, Maintaining script from GitHub
+//14: Icon Fix, Maintaining script from GitHub, OSCam in wrong category
 
 if ('undefined' == typeof __RTLM_PAGE_SCOPE_RUN__) {
   (function page_scope_runner()
@@ -563,8 +563,6 @@ $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn14);            //SPEEDCAM
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn17);            //OSM-BLITZER
-$("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn21);            //OSCAM
 
 $("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "GESCHWINDIGKEITEN / BILDER" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn3);
@@ -572,7 +570,8 @@ $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn11);            //MAPILLARY
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn12);            //OSBROWSER
-
+$("#sidepanel-p2sm").append('&nbsp;&nbsp;');
+$("#sidepanel-p2sm").append(btn21);            //OSCAM
 
 $("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "GEOPORTALE" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn4);
@@ -580,7 +579,6 @@ $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn16);            //BAYERNATLAS
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn19);            //WEBATLAS
-
 
 $("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "WAZE INTERN" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn5);
