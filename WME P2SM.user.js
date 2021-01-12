@@ -6,6 +6,7 @@
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @grant       none
+// @icon		https://github.com/iridium1-waze/WME-Core-Files/blob/master/map_icon.png
 // ==/UserScript==
 
 // Mini howto:
