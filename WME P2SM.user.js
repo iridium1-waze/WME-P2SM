@@ -12,7 +12,7 @@
 // 1) install this script as GitHub script
 // 2) Click on Google Maps Permalink on the sidebar
 
-var p2sm_version = "2.00.08.54/14";
+var p2sm_version = "2.00.08.54/15";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -28,6 +28,7 @@ var p2sm_version = "2.00.08.54/14";
 //12: Added OpenStreetCam
 //13: Added OpenStreet Browser (SL layer), BellHouse, Bug fixes
 //14: Icon Fix, Maintaining script from GitHub, OSCam in wrong category
+//15: Fixed URL for here
 
 if ('undefined' == typeof __RTLM_PAGE_SCOPE_RUN__) {
   (function page_scope_runner()
@@ -285,7 +286,7 @@ btn9.click(function(){
     window.open(mapsUrl,'_blank');
 });
 
-// https://maps.here.com/?map=53.24623,7.77117,18,satellite
+// https://wego.here.com/?map=53.24623,7.77117,18,satellite&x=ep
 var btn10 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/2YZi7eS);background-repeat: no-repeat;border-radius: 7px"">  Here</button>');
 btn10.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
@@ -296,7 +297,7 @@ btn10.click(function(){
 
     zoom = zoom > 19 ? 19 : zoom-1;
 
-    var mapsUrl = 'https://maps.here.com/?map=' + lat + ',' + lon + ',' + zoom + ',satellite';
+    var mapsUrl = 'https://wego.here.com/?map=' + lat + ',' + lon + ',' + zoom + ',satellite' + '&x=ep';
     window.open(mapsUrl,'_blank');
 });
 
