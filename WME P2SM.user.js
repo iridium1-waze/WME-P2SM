@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script create buttons to permalink page on several Maps.
 // @namespace   http://members.aon.at/aneumeister/scripts/waze/testmaps.user.js
-// @version     2.00.08.54/14
+// @version     2.00.08.54/15
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @grant       none
