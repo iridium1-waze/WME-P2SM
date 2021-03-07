@@ -2,18 +2,18 @@
 // @name        WME Permalink to several Maps
 // @description This script create buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2.00.08.54/15
+// @version     2.00.08.54/16
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
-// @grant       none
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
+// @grant       none
 // ==/UserScript==
 
 // Mini howto:
 // 1) install this script as GitHub script
-// 2) Click on Google Maps Permalink on the sidebar
+// 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2.00.08.54/15";
+var p2sm_version = "2.00.08.54/16";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -30,8 +30,16 @@ var p2sm_version = "2.00.08.54/15";
 //13: Added OpenStreet Browser (SL layer), BellHouse, Bug fixes
 //14: Icon Fix, Maintaining script from GitHub, OSCam in wrong category
 //15: Fixed URL for here
+//16: Fixed variable issues
 
-if ('undefined' == typeof __RTLM_PAGE_SCOPE_RUN__) {
+/* eslint-env jquery */ //we are working with jQuery
+//indicate used variables to be assigned
+/*global W*/
+/*global proj4*/
+/*global firstProj*/
+/*global newtab*/
+
+if (typeof __RTLM_PAGE_SCOPE_RUN__ === typeof undefined) {
   (function page_scope_runner()
    {
     // If we're _not_ already running in the page, grab the full source
@@ -58,7 +66,7 @@ if ('undefined' == typeof __RTLM_PAGE_SCOPE_RUN__) {
   // an anonymous wrapper.
   return;
 }
-
+//currently not in use, but leaving code as a claculation reference
 /*
 double[] WGS84toGoogleBing(double lon, double lat) {
   double x = lon * 20037508.34 / 180;
@@ -75,7 +83,6 @@ double[] GoogleBingtoWGS84Mercator (double x, double y) {
   return new double[] {lon, lat};
 }
 */
-
 
 function getQueryString (link, name)
 {
@@ -257,7 +264,10 @@ var btn8 = $('<button style="width: 90px;height: 24px;font-size:90%;">PR</button
 btn8.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
+    var lon = getQueryString(href, 'lon');
+    var lat = getQueryString(href, 'lat');
     var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
+
     var x = lon / 180 * 20037508.34;
     var y = Math.log(Math.tan((90 + lat*1) * Math.PI / 360)) / Math.PI;
     y = y * 20037508.34;
@@ -298,7 +308,7 @@ btn10.click(function(){
 
     zoom = zoom > 19 ? 19 : zoom-1;
 
-    var mapsUrl = 'https://wego.here.com/?map=' + lat + ',' + lon + ',' + zoom + ',satellite' + '&x=ep';
+    var mapsUrl = 'https://wego.here.com/?map=' + lat + ',' + lon + ',' + zoom + ',satellite&x=ep';
     window.open(mapsUrl,'_blank');
 });
 
@@ -410,7 +420,8 @@ btn16.click(function(){
    function popAtlas() {
    //just a wrapper for onload
      if (proj4) {
-       firstProj= "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+       var firstProj ='';
+         firstProj = "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
        var utm = proj4(firstProj,[lon,lat]);
     var mapsUrl = 'https://geoportal.bayern.de/bayernatlas/index.html?zoom=' + zoom + '&lang=de&topic=ba&bgLayer=atkis&catalogNodes=11,222&E=' + utm[0] +'&N=' + utm[1] ;
     window.open(mapsUrl,'_blank');
@@ -437,7 +448,8 @@ btn19.click(function(){
    function popAtlas() {
    //just a wrapper for onload
      if (proj4) {
-       firstProj= "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+       var firstProj ='';
+         firstProj = "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
        var utm = proj4(firstProj,[lon,lat]);
        var mapsUrl = 'https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=' + zoom + '&lon=' + utm[0] + '&lat=' + utm[1] + '&layers=B0T';
        window.open(mapsUrl,'_blank');
@@ -516,12 +528,13 @@ var addon = document.createElement("section");
 addon.id = "p2sm-addon";
 
 addon.innerHTML =
-    '<a href="https://greasyfork.org/scripts/3080-wme-permalink-to-serveral-maps/code/WME%20Permalink%20to%20serveral%20Maps.user.js" target="_blank">Permalink to several maps / V' + p2sm_version + '</a><p>';
+    '<a href="https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js" target="_blank">Permalink to several maps / V' + p2sm_version + '</a><p>';
 
 //alert("Create Tab");
 var userTabs = document.getElementById('user-info');
 var navTabs = document.getElementsByClassName('nav-tabs', userTabs)[0];
 var tabContent = document.getElementsByClassName('tab-content', userTabs)[0];
+var newtab = '';
 
 newtab = document.createElement('li');
 newtab.innerHTML = '<a href="#sidepanel-p2sm" data-toggle="tab">P2SM</a>';
@@ -531,62 +544,52 @@ addon.id = "sidepanel-p2sm";
 addon.className = "tab-pane";
 tabContent.appendChild(addon);
 
-
-//$("#sidepanel-p2sm").append(btn0);
-
-
-$("#sidepanel-p2sm").append(txtbtn1);          // ■■■■■ "ALLGEMEINE KARTEN" ■■■■■
+$("#sidepanel-p2sm").append(txtbtn1); // ■■■■■ "ALLGEMEINE KARTEN" ■■■■■
 $("#sidepanel-p2sm").append(spacer);
-$("#sidepanel-p2sm").append(btn1);             //GOOGLE
+$("#sidepanel-p2sm").append(btn1); //GOOGLE
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn2);             // BING
+$("#sidepanel-p2sm").append(btn2); // BING
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn3a);            //OSM
+$("#sidepanel-p2sm").append(btn3a); //OSM
 
 $("#sidepanel-p2sm").append('<br><br>');
- $("#sidepanel-p2sm").append(btn9);            //VIAM
+$("#sidepanel-p2sm").append(btn9); //VIAM
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-//$("#sidebar").append(btn4);
-$("#sidepanel-p2sm").append(btn10);            //HERE
+$("#sidepanel-p2sm").append(btn10); //HERE
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn13);            //MAPPY
+$("#sidepanel-p2sm").append(btn13); //MAPPY
 
- $("#sidepanel-p2sm").append('<br><br>');
-//$("#sidepanel-p2sm").append(btn3b);
-$("#sidepanel-p2sm").append(btn18);            //TOMTOM
+$("#sidepanel-p2sm").append('<br><br>');
+$("#sidepanel-p2sm").append(btn18); //TOMTOM
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-//$("#sidepanel-p2sm").append(btn3);
-//$("#sidepanel-p2sm").append(btn6);
-$("#sidepanel-p2sm").append(btn15);            //MAP1
+$("#sidepanel-p2sm").append(btn15); //MAP1
 
-$("#sidepanel-p2sm").append('<br><br>');       //  ■■■■■ "BLITZER" ■■■■■
+$("#sidepanel-p2sm").append('<br><br>'); //  ■■■■■ "BLITZER" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn2);
 $("#sidepanel-p2sm").append(spacer);
-$("#sidepanel-p2sm").append(btn14);            //SPEEDCAM
+$("#sidepanel-p2sm").append(btn14); //SPEEDCAM
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn17);            //OSM-BLITZER
+$("#sidepanel-p2sm").append(btn17); //OSM-BLITZER
 
-$("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "GESCHWINDIGKEITEN / BILDER" ■■■■■
+$("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "GESCHWINDIGKEITEN / BILDER" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn3);
 $("#sidepanel-p2sm").append(spacer);
-$("#sidepanel-p2sm").append(btn11);            //MAPILLARY
+$("#sidepanel-p2sm").append(btn11); //MAPILLARY
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn12);            //OSBROWSER
+$("#sidepanel-p2sm").append(btn12); //OSBROWSER
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn21);            //OSCAM
+$("#sidepanel-p2sm").append(btn21); //OSCAM
 
-$("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "GEOPORTALE" ■■■■■
+$("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "GEOPORTALE" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn4);
 $("#sidepanel-p2sm").append(spacer);
-$("#sidepanel-p2sm").append(btn16);            //BAYERNATLAS
+$("#sidepanel-p2sm").append(btn16); //BAYERNATLAS
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn19);            //WEBATLAS
+$("#sidepanel-p2sm").append(btn19); //WEBATLAS
 
-$("#sidepanel-p2sm").append('<br><br>');       // ■■■■■ "WAZE INTERN" ■■■■■
+$("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "WAZE INTERN" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn5);
 $("#sidepanel-p2sm").append(spacer);
-$("#sidepanel-p2sm").append(btn20);            //REPORTING
+$("#sidepanel-p2sm").append(btn20); //REPORTING
 
-//$("#sidepanel-p2sm").append(btn3b);
-//$("#sidepanel-p2sm").append(btn11);
 }
