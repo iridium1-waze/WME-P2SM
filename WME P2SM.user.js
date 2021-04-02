@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script create buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2.00.08.54/16
+// @version     2021.04.02.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2.00.08.54/16";
+var p2sm_version = "2021.04.02.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -30,7 +30,7 @@ var p2sm_version = "2.00.08.54/16";
 //13: Added OpenStreet Browser (SL layer), BellHouse, Bug fixes
 //14: Icon Fix, Maintaining script from GitHub, OSCam in wrong category
 //15: Fixed URL for here
-//16: Fixed variable issues
+//2021.04.02.01: Fixed variable issues, new Link & Icon for OSCam, New Versioning
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -502,8 +502,8 @@ btn20.click(function(){
      window.open(mapsUrl,'_blank');
 });
 
-    // https://openstreetcam.org/map/@48.110432829485546,11.527876853942873,16z
-var btn21 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/2QIT0bI);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;   OSCam</button>');
+    // https://kartaview.org/map/@48.110432829485546,11.527876853942873,16z
+var btn21 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkCyan;background-image: url(https://bit.ly/3sNABM3);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;    KartaView</button>');
 btn21.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
@@ -578,7 +578,7 @@ $("#sidepanel-p2sm").append(btn11); //MAPILLARY
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn12); //OSBROWSER
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn21); //OSCAM
+$("#sidepanel-p2sm").append(btn21); //KARTAVIEW
 
 $("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "GEOPORTALE" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn4);
