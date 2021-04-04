@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        WME Permalink to several Maps
-// @description This script create buttons to permalink page on several Maps.
+// @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
 // @version     2021.04.04.01
 // @include     https://*.waze.com/editor*
@@ -32,7 +32,7 @@ var p2sm_version = "2021.04.04.01";
 //15: Fixed URL for here
 //2021.04.02.01: Fixed variable issues, new Link & Icon for KartaView (former OSCam), New Versioning
 //2021.04.02.02: Fixed wrong text color for KartaView button
-//2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing
+//2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing - thanks to Glodenox!
 
 
 
@@ -503,7 +503,7 @@ btn21.click(function(){
     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
     zoom = zoom[W.map.zoom];
 
-    var mapsUrl = 'https://openstreetcam.org/map/@' + lat + ',' + lon + ',' + zoom + 'z';
+    var mapsUrl = 'https://kartaview.org/map/@' + lat + ',' + lon + ',' + zoom + 'z';
     window.open(mapsUrl,'_blank');
 });
 
