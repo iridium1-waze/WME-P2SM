@@ -76,7 +76,7 @@ function add_buttons()
 {
   if (document.getElementById('user-info') == null) {
     setTimeout(add_buttons, 500);
-    log('user-info element not yet available, page still loading');
+    console.log('user-info element not yet available, page still loading');
     return;
   }
   if (!W.loginManager.user) {
