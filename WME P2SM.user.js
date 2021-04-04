@@ -511,7 +511,7 @@ var txtbtn3 = $('<button style="width: 285px;height: 24px; border: 1px solid sil
 var txtbtn4 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: CornflowerBlue; background-color: ghostwhite; border-radius: 7px">GEOPORTALE</button>');
 var txtbtn5 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: LightSeaGreen; background-color: ghostwhite; border-radius: 7px;">WAZE INTERN</button>');
 var spacer = '<p style="margin-bottom:10px">'
-var safeSourcesText = $('<div><i class="w-icon w-icon-warning" style="font-size: 30px;float: left;margin-right: 5px;margin-bottom: 20px;"></i> Verwendee die anderen Karten niemals als Informationsquelle, um die Karte zu bearbeiten!</div>');
+var safeSourcesText = $('<div><i class="w-icon w-icon-warning" style="font-size: 30px;float: left;margin-right: 5px;margin-bottom: 20px;"></i> Hinweis: Einige der externen Karten sind als Informationsquelle zur Kartenbearbeitung nicht zulässig!</div>');
 
 // add new box to left of the map
 var addon = document.createElement("section");
