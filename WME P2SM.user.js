@@ -34,8 +34,6 @@ var p2sm_version = "2021.04.04.01";
 //2021.04.02.02: Fixed wrong text color for KartaView button
 //2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing - thanks to Glodenox!
 
-
-
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
 /*global W*/
