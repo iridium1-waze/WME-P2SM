@@ -40,33 +40,6 @@ var p2sm_version = "2021.04.02.02";
 /*global firstProj*/
 /*global newtab*/
 
-if (typeof __RTLM_PAGE_SCOPE_RUN__ === typeof undefined) {
-  (function page_scope_runner()
-   {
-    // If we're _not_ already running in the page, grab the full source
-    // of this script.
-    var my_src = "(" + page_scope_runner.caller.toString() + ")();";
-
-    // Create a script node holding this script, plus a marker that lets us
-    // know we are running in the page scope (not the Greasemonkey sandbox).
-    // Note that we are intentionally *not* scope-wrapping here.
-    var script = document.createElement('script');
-    script.setAttribute("type", "text/javascript");
-    script.textContent = "var __RTLM_PAGE_SCOPE_RUN__ = true;\n" + my_src;
-
-    // Insert the script node into the page, so it will run, and immediately
-    // remove it to clean up.  Use setTimeout to force execution "outside" of
-    // the user script scope completely.
-    setTimeout(function() {
-          document.body.appendChild(script);
-          add_buttons();
-        }, 3000);
-  })();
-
-  // Stop running, because we know Greasemonkey actually runs us in
-  // an anonymous wrapper.
-  return;
-}
 //currently not in use, but leaving code as a claculation reference
 /*
 double[] WGS84toGoogleBing(double lon, double lat) {
@@ -101,6 +74,20 @@ function CorrectZoom (link)
 
 function add_buttons()
 {
+  if (document.getElementById('user-info') == null) {
+    setTimeout(add_buttons, 500);
+    log('user-info element not yet available, page still loading');
+    return;
+  }
+  if (!W.loginManager.user) {
+    W.loginManager.events.register('login', null, add_buttons);
+    W.loginManager.events.register('loginStatus', null, add_buttons);
+    // Double check as event might have triggered already
+    if (!W.loginManager.user) {
+      return;
+    }
+  }
+
 var btn0 = $('<button style="width: 90px;height: 24px;font-size:90%;">ß-Switch</button>');
 btn0.click(function(){
     var mapsUrl;
@@ -594,3 +581,5 @@ $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn20); //REPORTING
 
 }
+
+add_buttons();
