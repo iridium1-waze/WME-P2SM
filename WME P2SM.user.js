@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script create buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2021.04.02.02
+// @version     2021.04.04.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2021.04.02.02";
+var p2sm_version = "2021.04.04.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -32,6 +32,9 @@ var p2sm_version = "2021.04.02.02";
 //15: Fixed URL for here
 //2021.04.02.01: Fixed variable issues, new Link & Icon for KartaView (former OSCam), New Versioning
 //2021.04.02.02: Fixed wrong text color for KartaView button
+//2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing
+
+
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -510,7 +513,7 @@ var txtbtn3 = $('<button style="width: 285px;height: 24px; border: 1px solid sil
 var txtbtn4 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: CornflowerBlue; background-color: ghostwhite; border-radius: 7px">GEOPORTALE</button>');
 var txtbtn5 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: LightSeaGreen; background-color: ghostwhite; border-radius: 7px;">WAZE INTERN</button>');
 var spacer = '<p style="margin-bottom:10px">'
-var safeSourcesText = $('<div><i class="w-icon w-icon-warning" style="font-size: 30px;float: left;margin-right: 5px;margin-bottom: 20px;"></i> Verwenden Sie diese anderen Karten niemals als Informationsquelle, um die Karte zu bearbeiten!</div>');
+var safeSourcesText = $('<div><i class="w-icon w-icon-warning" style="font-size: 30px;float: left;margin-right: 5px;margin-bottom: 20px;"></i> Verwendee die anderen Karten niemals als Informationsquelle, um die Karte zu bearbeiten!</div>');
 
 // add new box to left of the map
 var addon = document.createElement("section");
