@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2021.04.04.01
+// @version     2021.08.27.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2021.04.04.01";
+var p2sm_version = "2021.08.27.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -33,6 +33,7 @@ var p2sm_version = "2021.04.04.01";
 //2021.04.02.01: Fixed variable issues, new Link & Icon for KartaView (former OSCam), New Versioning
 //2021.04.02.02: Fixed wrong text color for KartaView button
 //2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing - thanks to Glodenox!
+//2021.08.27.01: Fixed zoom issues with new WME version
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -123,9 +124,9 @@ btn1.click(function(){
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-    zoom = zoom[W.map.zoom];
-
+    zoom = W.map.getOLMap().getZoom()
     var mapsUrl = 'https://www.google.com/maps/@' + lat + ',' + lon + ',' + zoom + 'z';
+
     window.open(mapsUrl,'_blank');
 });
 
@@ -175,8 +176,7 @@ btn3a.click(function(){
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-    zoom = zoom[W.map.zoom];
-    zoom = zoom > 19 ? 19 : zoom;
+    zoom = W.map.getOLMap().getZoom()
 
     var mapsUrl = 'http://www.openstreetmap.org/#map=' + zoom + '/'+ lat + '/' + lon;
     //var mapsUrl = 'http://www.openstreetmap.org/?lat=' + lat + '&lon=' + lon + '&zoom=' + zoom + '&layers=M';
@@ -350,9 +350,8 @@ btn13.click(function(){
 
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
-    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
-
-    zoom = zoom > 19 ? 19 : zoom-1;
+    var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    zoom = W.map.getOLMap().getZoom() -1;
 
     var mapsUrl = 'https://en.mappy.com/#/12/M2/THome/N0,0,' + lon + ',' + lat + '/Z' + zoom + '/';
     window.open(mapsUrl,'_blank');
@@ -470,7 +469,7 @@ btn18.click(function(){
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-    zoom = zoom[W.map.zoom]-1;
+    zoom = W.map.getOLMap().getZoom() -1;
 
     var mapsUrl = 'https://mydrive.tomtom.com/de_de/#mode=viewport+viewport=' + lat +',' + lon +',' + zoom + ',0,-0+ver=3';
     window.open(mapsUrl,'_blank');
@@ -485,7 +484,7 @@ btn20.click(function(){
      var lon = getQueryString(href, 'lon');
      var lat = getQueryString(href, 'lat');
      var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-     zoom = zoom[W.map.zoom]-1;
+     zoom = W.map.getOLMap().getZoom() -1;
 
      var mapsUrl = 'https://www.waze.com/reporting/location?lat=' + lat + '&lng=' + lon + '&zoom=' + zoom;
      window.open(mapsUrl,'_blank');
@@ -499,7 +498,7 @@ btn21.click(function(){
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-    zoom = zoom[W.map.zoom];
+    zoom = W.map.getOLMap().getZoom() -1;
 
     var mapsUrl = 'https://kartaview.org/map/@' + lat + ',' + lon + ',' + zoom + 'z';
     window.open(mapsUrl,'_blank');
