@@ -417,6 +417,26 @@ btn16.click(function(){
    }
 });
 
+// https://geoportal.bayern.de/bayernatlas/index.html?zoom=9&lang=de&topic=ba&bgLayer=atkis&catalogNodes=11,122&E=639436.74&N=5324591.68
+var btnBayerninfo = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;padding:1px;border-radius: 7px"><svg width="20px" height="11px" viewBox="0 0 20 11" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;margin-bottom:-1px"><g><path d="M0.003,5.713c0.009,-1.67 1.498,-3.157 3.818,-4.123l3.993,2.107c-0.738,0.569 -1.171,1.251 -1.175,1.99c-0.009,1.958 3.01,3.554 6.75,3.558c3.224,0.005 5.924,-1.176 6.614,-2.754c-0.703,2.536 -4.845,4.485 -9.86,4.507c-0.516,-0.004 -1.023,-0.022 -1.525,-0.052c-4.88,-0.367 -8.628,-2.571 -8.615,-5.233Z" style="fill:#1a83c1;fill-rule:nonzero;"/><path d="M0.003,5.713c0.009,-1.67 1.498,-3.157 3.818,-4.123l3.993,2.107c-0.738,0.569 -1.171,1.251 -1.175,1.99c-0.009,1.958 3.01,3.554 6.75,3.558c3.224,0.005 5.924,-1.176 6.614,-2.754c-0.703,2.536 -4.845,4.485 -9.86,4.507c-0.516,-0.004 -1.023,-0.022 -1.525,-0.052c-4.88,-0.367 -8.628,-2.571 -8.615,-5.233Z" style="fill:#317fcb;fill-rule:nonzero;"/><path d="M8.893,3.527c0.76,-0.262 1.595,-0.433 2.455,-0.52l0.018,-2.973c-2.276,-0.14 -4.622,0.131 -6.614,0.804l4.141,2.689Z" style="fill:#ff9100;fill-rule:nonzero;"/></g></svg> BayernInfo</button>');
+btnBayerninfo.click(function () {
+    var href = $('.WazeControlPermalink a').attr('href');
+
+    var lon = parseFloat(getQueryString(href, 'lon'));
+    var lat = parseFloat(getQueryString(href, 'lat'));
+    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
+
+    zoom = zoom - 2;
+
+    var now = new Date();
+    var then = new Date();
+    then.setDate(then.getDate() + 60);
+
+    var mapsUrl = 'https://www.bayerninfo.de/de/baustellenkalender?geo=' + lat + ',' + lon + '&zoom=' + zoom;
+    mapsUrl = mapsUrl + '&datetimeFrom=' + now.toISOString() + '&datetimeTo=' + then.toISOString();
+    window.open(mapsUrl, '_blank');
+});
+
 // https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=13&layers=B0T&lat=5333718.98151&lon=688932.96544
 var btn19 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://bit.ly/2QJJ8OZ);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;WebAtlas</button>');
 btn19.click(function(){
@@ -573,6 +593,8 @@ $("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "GEOPORTALE" ■■�
 $("#sidepanel-p2sm").append(txtbtn4);
 $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn16); //BAYERNATLAS
+$("#sidepanel-p2sm").append('&nbsp;&nbsp;');
+$("#sidepanel-p2sm").append(btnBayerninfo); //BAYERNINFO
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn19); //WEBATLAS
 
