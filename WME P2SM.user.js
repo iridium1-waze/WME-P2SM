@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2021.08.27.01
+// @version     2021.12.04.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2021.08.27.01";
+var p2sm_version = "2021.12.04.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -34,6 +34,7 @@ var p2sm_version = "2021.08.27.01";
 //2021.04.02.02: Fixed wrong text color for KartaView button
 //2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing - thanks to Glodenox!
 //2021.08.27.01: Fixed zoom issues with new WME version
+//2021.12.04.01: Added Bayerninfo - thanks to ralseu!
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -335,9 +336,8 @@ btn12.click(function(){
 
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
-    var zoom = W.map.zoom+12;
-
-    zoom = zoom > 20 ? 20 : zoom;
+    var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    zoom = W.map.getOLMap().getZoom() -1;
 
     var mapsUrl = 'https://www.openstreetbrowser.org/#map=' + zoom + '/' + lat + '/' + lon + '&categories=car_maxspeed';
     window.open(mapsUrl,'_blank');
@@ -503,6 +503,27 @@ btn21.click(function(){
     var mapsUrl = 'https://kartaview.org/map/@' + lat + ',' + lon + ',' + zoom + 'z';
     window.open(mapsUrl,'_blank');
 });
+    // https://bayerninfo.de/de/baustellenkalender?geo=48.084776,11.196357&zoom=16
+var btn22 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkGreen;background-image: url(https://bit.ly/2Y3CfyA);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;    Bayerninfo</button>');
+btn22.click(function(){
+    var href = $('.WazeControlPermalink a').attr('href');
+
+    var lon = parseFloat(getQueryString(href, 'lon'));
+    var lat = parseFloat(getQueryString(href, 'lat'));
+    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
+
+    zoom = zoom - 2;
+
+    var now = new Date();
+    var then = new Date();
+    then.setDate(then.getDate() + 60);
+
+    var mapsUrl = 'https://www.bayerninfo.de/de/baustellenkalender?geo=' + lat + ',' + lon + '&zoom=' + zoom;
+    mapsUrl = mapsUrl + '&datetimeFrom=' + now.toISOString() + '&datetimeTo=' + then.toISOString();
+    window.open(mapsUrl, '_blank');
+});
+
+
 
 var txtbtn1 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: DarkSlateGrey; background-color: ghostwhite; border-radius: 7px;">ALLGEMEINE KARTEN</button>');
 var txtbtn2 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: DarkCyan; background-color: ghostwhite;; border-radius: 7px">BLITZER</button>');
@@ -573,6 +594,8 @@ $("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "GEOPORTALE" ■■�
 $("#sidepanel-p2sm").append(txtbtn4);
 $("#sidepanel-p2sm").append(spacer);
 $("#sidepanel-p2sm").append(btn16); //BAYERNATLAS
+$("#sidepanel-p2sm").append('&nbsp;&nbsp;');
+$("#sidepanel-p2sm").append(btn22); //BAYERNINFO
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn19); //WEBATLAS
 
