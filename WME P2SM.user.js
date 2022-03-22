@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2021.12.04.01
+// @version     2022.03.22.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2021.12.04.01";
+var p2sm_version = "2022.03.22.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -35,6 +35,7 @@ var p2sm_version = "2021.12.04.01";
 //2021.04.04.01: Fixed wrong URL for KartaView. Fix script initialisation with a more robust bootstrap. Add explicit reference to console.log instead of just log. Add stern warning about using these maps as source for map editing - thanks to Glodenox!
 //2021.08.27.01: Fixed zoom issues with new WME version
 //2021.12.04.01: Added Bayerninfo - thanks to ralseu!
+//2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -372,18 +373,17 @@ btn14.click(function(){
     window.open(mapsUrl,'_blank');
 });
 
-// http://beta.map1.eu/#zoom=14&lat=47.66229&lon=14.48784&layers=BT
-var btn15 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/32SEDax);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;map1</button>');
+// https://www.msn.com/de-de/traffic?locale=de-de&cp=51.23013,%206.82414&lvl=19&sty=h
+var btn15 = $('<button style="width: 90px;height: 24px;font-size:90%;color: DarkSlateGrey;background-image: url(https://bit.ly/3wxLfeH);background-repeat: no-repeat;border-radius: 7px">&nbsp;MSN</button>');
 btn15.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
 
     var lon = getQueryString(href, 'lon');
     var lat = getQueryString(href, 'lat');
-    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
+    var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    zoom = W.map.getOLMap().getZoom()
 
-    zoom = zoom > 15 ? 15 : zoom;
-
-    var mapsUrl = 'http://beta.map1.eu/#zoom=' + zoom + '&lat=' + lat + '&lon=' + lon + '&layers=BT';
+    var mapsUrl = 'https://www.msn.com/de-de/traffic?locale=de-de&cp=' + lat + ',%20' + lon + '&lvl=' + zoom;
     window.open(mapsUrl,'_blank');
 });
 
@@ -415,6 +415,26 @@ btn16.click(function(){
     window.open(mapsUrl,'_blank');
      }
    }
+});
+
+// https://geoportal.bayern.de/bayernatlas/index.html?zoom=9&lang=de&topic=ba&bgLayer=atkis&catalogNodes=11,122&E=639436.74&N=5324591.68
+var btnBayerninfo = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;padding:1px;border-radius: 7px"><svg width="20px" height="11px" viewBox="0 0 20 11" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;margin-bottom:-1px"><g><path d="M0.003,5.713c0.009,-1.67 1.498,-3.157 3.818,-4.123l3.993,2.107c-0.738,0.569 -1.171,1.251 -1.175,1.99c-0.009,1.958 3.01,3.554 6.75,3.558c3.224,0.005 5.924,-1.176 6.614,-2.754c-0.703,2.536 -4.845,4.485 -9.86,4.507c-0.516,-0.004 -1.023,-0.022 -1.525,-0.052c-4.88,-0.367 -8.628,-2.571 -8.615,-5.233Z" style="fill:#1a83c1;fill-rule:nonzero;"/><path d="M0.003,5.713c0.009,-1.67 1.498,-3.157 3.818,-4.123l3.993,2.107c-0.738,0.569 -1.171,1.251 -1.175,1.99c-0.009,1.958 3.01,3.554 6.75,3.558c3.224,0.005 5.924,-1.176 6.614,-2.754c-0.703,2.536 -4.845,4.485 -9.86,4.507c-0.516,-0.004 -1.023,-0.022 -1.525,-0.052c-4.88,-0.367 -8.628,-2.571 -8.615,-5.233Z" style="fill:#317fcb;fill-rule:nonzero;"/><path d="M8.893,3.527c0.76,-0.262 1.595,-0.433 2.455,-0.52l0.018,-2.973c-2.276,-0.14 -4.622,0.131 -6.614,0.804l4.141,2.689Z" style="fill:#ff9100;fill-rule:nonzero;"/></g></svg> BayernInfo</button>');
+btnBayerninfo.click(function () {
+    var href = $('.WazeControlPermalink a').attr('href');
+
+    var lon = parseFloat(getQueryString(href, 'lon'));
+    var lat = parseFloat(getQueryString(href, 'lat'));
+    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
+
+    zoom = zoom - 2;
+
+    var now = new Date();
+    var then = new Date();
+    then.setDate(then.getDate() + 60);
+
+    var mapsUrl = 'https://www.bayerninfo.de/de/baustellenkalender?geo=' + lat + ',' + lon + '&zoom=' + zoom;
+    mapsUrl = mapsUrl + '&datetimeFrom=' + now.toISOString() + '&datetimeTo=' + then.toISOString();
+    window.open(mapsUrl, '_blank');
 });
 
 // https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=13&layers=B0T&lat=5333718.98151&lon=688932.96544
@@ -572,7 +592,7 @@ $("#sidepanel-p2sm").append(btn13); //MAPPY
 $("#sidepanel-p2sm").append('<br><br>');
 $("#sidepanel-p2sm").append(btn18); //TOMTOM
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn15); //MAP1
+$("#sidepanel-p2sm").append(btn15); //MSN
 
 $("#sidepanel-p2sm").append('<br><br>'); //  ■■■■■ "BLITZER" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn2);
