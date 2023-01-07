@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2022.03.22.01
+// @version     2023.01.07.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2022.03.22.01";
+var p2sm_version = "2023.01.07.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -36,6 +36,7 @@ var p2sm_version = "2022.03.22.01";
 //2021.08.27.01: Fixed zoom issues with new WME version
 //2021.12.04.01: Added Bayerninfo - thanks to ralseu!
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
+//2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from ChaOz!
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -44,23 +45,6 @@ var p2sm_version = "2022.03.22.01";
 /*global firstProj*/
 /*global newtab*/
 
-//currently not in use, but leaving code as a claculation reference
-/*
-double[] WGS84toGoogleBing(double lon, double lat) {
-  double x = lon * 20037508.34 / 180;
-  double y = Math.Log(Math.Tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
-  y = y * 20037508.34 / 180;
-  return new double[] {x, y};
-}
-
-double[] GoogleBingtoWGS84Mercator (double x, double y) {
-  double lon = (x / 20037508.34) * 180;
-  double lat = (y / 20037508.34) * 180;
-
-  lat = 180/Math.PI * (2 * Math.Atan(Math.Exp(lat * Math.PI / 180)) - Math.PI / 2);
-  return new double[] {lon, lat};
-}
-*/
 
 function getQueryString (link, name)
 {
@@ -68,6 +52,15 @@ function getQueryString (link, name)
     var len = link.substr(pos).indexOf('&');
     if (-1 == len) len = link.substr(pos).length;
     return link.substr(pos,len);
+}
+
+function BasemapZoom(met, lat) {
+    // https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
+    // 78271.484 meters/pixel basis
+    // met = meter per pixel in destination
+    // lat = latitude of destination
+    // returns Basemap zoom factor
+    return Math.log2( 78271.484 / met * Math.cos( lat / 180 * Math.PI ) )
 }
 
 function CorrectZoom (link)
@@ -437,33 +430,21 @@ btnBayerninfo.click(function () {
     window.open(mapsUrl, '_blank');
 });
 
-// https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=13&layers=B0T&lat=5333718.98151&lon=688932.96544
-var btn19 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://bit.ly/2QJJ8OZ);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;WebAtlas</button>');
-btn19.click(function(){
+// https://basemap.de/viewer/?config=<Base64 encoded coordinates>
+var btn19 = $('<button style="width: 90px;height: 24px;font-size:90%;color: CornflowerBlue;background-image: url(https://bit.ly/2QJJ8OZ);background-repeat: no-repeat;border-radius: 7px">&nbsp;&nbsp;basemap.de</button>');
+btn19.click(function() {
    var href = $('.WazeControlPermalink a').attr('href');
 
-    var lon = parseFloat(getQueryString(href, 'lon'));
-    var lat = parseFloat(getQueryString(href, 'lat'));
-    var zoom = parseInt(getQueryString(href, 'zoom')) + CorrectZoom(href);
-   zoom = zoom -6.5;
+   var scale = $(".olControlScaleLineTop");
+   var scaleText = scale.text();
+   var scaleWidth = scale.width();
+   var meter = parseInt(scaleText) * (scaleText.includes("k")?1000:1) / parseInt(scaleWidth);
 
-   // Using Proj4js to transform coordinates. See http://proj4js.org/
-   var script = document.createElement("script"); // dynamic load the library from https://cdnjs.com/libraries/proj4js
-   script.type = 'text/javascript';
-   script.src = 'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js';
-   document.getElementsByTagName('head')[0].appendChild(script); // Add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
-   script.onload = popAtlas; //wait till the script is downloaded & executed
-   function popAtlas() {
-   //just a wrapper for onload
-     if (proj4) {
-       var firstProj ='';
-         firstProj = "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
-       var utm = proj4(firstProj,[lon,lat]);
-       var mapsUrl = 'https://sg.geodatenzentrum.de/web_bkg_webmap/applications/webatlasde/webatlasde.html?zoom=' + zoom + '&lon=' + utm[0] + '&lat=' + utm[1] + '&layers=B0T';
-       window.open(mapsUrl,'_blank');
-     }
-   }
+   var lon = getQueryString(href, 'lon');
+   var lat = getQueryString(href, 'lat');
+   var zoom = BasemapZoom(meter, lat);
 
+   window.open("https://basemap.de/viewer?config=" + btoa('{"lat":' + lat + ',"lon":' + lon + ',"zoom":' + zoom + ',"styleID":0,"pitch":0,"bearing":0,"saturation":0,"brightness":0,"hiddenControls":[],"hiddenLayers":[],"changedLayers":[],"hiddenSubGroups":[],"changedSubGroups":[],"externalStyleURL":""}'), "basemap");
 });
 
 // http://frink.bplaced.de/blitzer/#map=11/51.9026/10.5036
@@ -617,7 +598,7 @@ $("#sidepanel-p2sm").append(btn16); //BAYERNATLAS
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
 $("#sidepanel-p2sm").append(btn22); //BAYERNINFO
 $("#sidepanel-p2sm").append('&nbsp;&nbsp;');
-$("#sidepanel-p2sm").append(btn19); //WEBATLAS
+$("#sidepanel-p2sm").append(btn19); //basemap.de
 
 $("#sidepanel-p2sm").append('<br><br>'); // ■■■■■ "WAZE INTERN" ■■■■■
 $("#sidepanel-p2sm").append(txtbtn5);
