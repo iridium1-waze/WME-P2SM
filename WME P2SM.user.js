@@ -36,7 +36,7 @@ var p2sm_version = "2023.01.07.01";
 //2021.08.27.01: Fixed zoom issues with new WME version
 //2021.12.04.01: Added Bayerninfo - thanks to ralseu!
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
-//2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from ChaOz!
+//2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
