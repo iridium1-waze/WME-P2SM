@@ -48,7 +48,7 @@ var p2sm_version = "2023.03.12.01";
 
 //initialize if WME has loaded using Scripts API
 (function initialize() {
-    if(W?.userscripts?.state.isReady) {
+    if(W?.userscripts?.state?.isReady) {
         add_buttons();
     }
     else {
