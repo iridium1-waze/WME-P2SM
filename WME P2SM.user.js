@@ -52,7 +52,7 @@ var p2sm_version = "2023.03.12.01";
         add_buttons();
     }
     else {
-        document.addEventListener("wme-ready", initialize, {once:true});
+        document.addEventListener("wme-ready", add_buttons, {once:true});
     }
 })();
 
