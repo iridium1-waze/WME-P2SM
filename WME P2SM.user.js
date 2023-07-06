@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2023.01.07.01
+// @version     2023.07.06.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2023.01.07.01";
+var p2sm_version = "2023.07.06.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -37,6 +37,8 @@ var p2sm_version = "2023.01.07.01";
 //2021.12.04.01: Added Bayerninfo - thanks to ralseu!
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
 //2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
+//2023.03.12.01: FasterinoSpeederino - updated Script to use WME Script API
+//2023.07.06.01: FasterinoSpeederino - updated the link to reporting tool in Waze Partner Hub, since the standalone one got deprecated. Unfortunately, jumping to coordinates is not possible anymore.
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -45,6 +47,15 @@ var p2sm_version = "2023.01.07.01";
 /*global firstProj*/
 /*global newtab*/
 
+//initialize if WME has loaded using Scripts API
+(function initialize() {
+    if(W?.userscripts?.state?.isReady) {
+        add_buttons();
+    }
+    else {
+        document.addEventListener("wme-ready", add_buttons, {once:true});
+    }
+})();
 
 function getQueryString (link, name)
 {
@@ -71,19 +82,9 @@ function CorrectZoom (link)
 
 function add_buttons()
 {
-  if (document.getElementById('user-info') == null) {
-    setTimeout(add_buttons, 500);
-    console.log('user-info element not yet available, page still loading');
-    return;
-  }
-  if (!W.loginManager.user) {
-    W.loginManager.events.register('login', null, add_buttons);
-    W.loginManager.events.register('loginStatus', null, add_buttons);
-    // Double check as event might have triggered already
-    if (!W.loginManager.user) {
-      return;
-    }
-  }
+
+//register script tab using Scripts API
+const {tabLabel, tabPane} = W.userscripts.registerSidebarTab("p2sm");
 
 var btn0 = $('<button style="width: 90px;height: 24px;font-size:90%;">ß-Switch</button>');
 btn0.click(function(){
@@ -477,17 +478,10 @@ btn18.click(function(){
 
 });
 
-    // Waze Reportingtool: https://www.waze.com/reporting/location?lat=49.50939698036761&lng=6.743288040161134&zoom=16
+    // Waze Reportingtool: https://www.waze.com/partnerhub/tools/reporting-tool
     var btn20 = $('<button style="width: 90px;height: 24px;font-size:90%;color: LightSeaGreen;background-image: url(https://bit.ly/3jEtjWg);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="Reporting">&nbsp;  Reporting</button>');
 btn20.click(function(){
-    var href = $('.WazeControlPermalink a').attr('href');
-
-     var lon = getQueryString(href, 'lon');
-     var lat = getQueryString(href, 'lat');
-     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-     zoom = W.map.getOLMap().getZoom() -1;
-
-     var mapsUrl = 'https://www.waze.com/reporting/location?lat=' + lat + '&lng=' + lon + '&zoom=' + zoom;
+     var mapsUrl = 'https://www.waze.com/partnerhub/tools/reporting-tool';
      window.open(mapsUrl,'_blank');
 });
 
@@ -524,8 +518,6 @@ btn22.click(function(){
     window.open(mapsUrl, '_blank');
 });
 
-
-
 var txtbtn1 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: DarkSlateGrey; background-color: ghostwhite; border-radius: 7px;">ALLGEMEINE KARTEN</button>');
 var txtbtn2 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: DarkCyan; background-color: ghostwhite;; border-radius: 7px">BLITZER</button>');
 var txtbtn3 = $('<button style="width: 285px;height: 24px; border: 1px solid silver; font-size:80%; font-weight: bold; color: DarkGreen; background-color: ghostwhite; border-radius: 7px">GESCHWINDIGKEITEN / BILDER</button>');
@@ -534,26 +526,18 @@ var txtbtn5 = $('<button style="width: 285px;height: 24px; border: 1px solid sil
 var spacer = '<p style="margin-bottom:10px">'
 var safeSourcesText = $('<div><i class="w-icon w-icon-warning" style="font-size: 30px;float: left;margin-right: 5px;margin-bottom: 20px;"></i> Hinweis: Einige der externen Karten sind als Informationsquelle zur Kartenbearbeitung nicht zulässig!</div>');
 
-// add new box to left of the map
-var addon = document.createElement("section");
-addon.id = "p2sm-addon";
+var tabContent = document.createElement("section");
+tabContent.id = "sidepanel-p2sm";
 
-addon.innerHTML =
-    '<a href="https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js" target="_blank">Permalink to several maps / V' + p2sm_version + '</a><p>';
+//wait for previously registered sidepane tab to be available
+W.userscripts.waitForElementConnected(tabLabel).then(() => {
+    tabLabel.innerText = "PTSM";
+    tabLabel.title = "Permalink to Several Maps Script";
+})
 
-//alert("Create Tab");
-var userTabs = document.getElementById('user-info');
-var navTabs = document.getElementsByClassName('nav-tabs', userTabs)[0];
-var tabContent = document.getElementsByClassName('tab-content', userTabs)[0];
-var newtab = '';
-
-newtab = document.createElement('li');
-newtab.innerHTML = '<a href="#sidepanel-p2sm" data-toggle="tab">P2SM</a>';
-navTabs.appendChild(newtab);
-
-addon.id = "sidepanel-p2sm";
-addon.className = "tab-pane";
-tabContent.appendChild(addon);
+W.userscripts.waitForElementConnected(tabPane).then(() => {
+    tabPane.innerHTML = '<a href="https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js" target="_blank">Permalink to several maps / V' + p2sm_version + '</a><p>';
+    tabPane.appendChild(tabContent);
 
 $("#sidepanel-p2sm").append(txtbtn1); // ■■■■■ "ALLGEMEINE KARTEN" ■■■■■
 $("#sidepanel-p2sm").append(spacer);
@@ -607,6 +591,6 @@ $("#sidepanel-p2sm").append(btn20); //REPORTING
 
 $("#sidepanel-p2sm").append('<br><br>'); //SAFE SOURCES WARNING
 $("#sidepanel-p2sm").append(safeSourcesText);
+})
 }
 
-add_buttons();
