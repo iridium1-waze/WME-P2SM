@@ -38,7 +38,7 @@ var p2sm_version = "2023.07.06.01";
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
 //2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
 //2023.03.12.01: FasterinoSpeederino - updated Script to use WME Script API
-//2023.07.06.01: FasterinoSpeederino - updated link to reporting tool in Waze Partner Hub, since the standalone one got deprecated
+//2023.07.06.01: FasterinoSpeederino - updated the link to reporting tool in Waze Partner Hub, since the standalone one got deprecated. Unfortunately, jumping to coordinates is not possible anymore.
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
