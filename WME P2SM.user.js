@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2023.01.07.01
+// @version     2023.07.06.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2023.03.12.01";
+var p2sm_version = "2023.07.06.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -38,6 +38,7 @@ var p2sm_version = "2023.03.12.01";
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
 //2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
 //2023.03.12.01: FasterinoSpeederino - updated Script to use WME Script API
+//2023.07.06.01: FasterinoSpeederino - updated link to reporting tool in Waze Partner Hub, since the standalone one got deprecated
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -477,17 +478,10 @@ btn18.click(function(){
 
 });
 
-    // Waze Reportingtool: https://www.waze.com/reporting/location?lat=49.50939698036761&lng=6.743288040161134&zoom=16
+    // Waze Reportingtool: https://www.waze.com/partnerhub/tools/reporting-tool
     var btn20 = $('<button style="width: 90px;height: 24px;font-size:90%;color: LightSeaGreen;background-image: url(https://bit.ly/3jEtjWg);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="Reporting">&nbsp;  Reporting</button>');
 btn20.click(function(){
-    var href = $('.WazeControlPermalink a').attr('href');
-
-     var lon = getQueryString(href, 'lon');
-     var lat = getQueryString(href, 'lat');
-     var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-     zoom = W.map.getOLMap().getZoom() -1;
-
-     var mapsUrl = 'https://www.waze.com/reporting/location?lat=' + lat + '&lng=' + lon + '&zoom=' + zoom;
+     var mapsUrl = 'https://www.waze.com/partnerhub/tools/reporting-tool';
      window.open(mapsUrl,'_blank');
 });
 
