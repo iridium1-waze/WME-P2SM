@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2023.07.27.02
+// @version     2023.07.27.03
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2023.07.27.02";
+var p2sm_version = "2023.07.27.03";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -39,6 +39,7 @@ var p2sm_version = "2023.07.27.02";
 //2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
 //2023.07.27.01: Changed Link for Waze Reporting Tool (now PartnerHub)
 //2023.07.27.02: Fixed Command typo for new Reporting Tool Link
+//2023.07.27.03: Fixed Zoom with Reporting Tool Link
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -487,7 +488,7 @@ btn20.click(function(){
      var lon = getQueryString(href, 'lon');
      var lat = getQueryString(href, 'lat');
      var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-     zoom = W.map.getOLMap().getZoom() -1;
+     zoom = W.map.getOLMap().getZoom();
 
      var mapsUrl = 'https://www.waze.com/partnerhub/tools/reporting-tool?lat=' + lat + '&lon=' + lon + '&zoom=' + zoom;
      window.open(mapsUrl,'_blank');
