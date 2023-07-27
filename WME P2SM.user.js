@@ -38,6 +38,7 @@ var p2sm_version = "2023.07.27.02";
 //2022.03.22.01: Removed Map1, no longer working. Addes msn - thanks to hiwi234!
 //2023.01.07.01: Webatlas no longer supported, added basemap.de as new supported version. Thanks to hint from Cha-oZ!
 //2023.07.27.01: Changed Link for Waze Reporting Tool (now PartnerHub)
+//2023.07.27.02: Fixed Command typo for new Reporting Tool Link
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
