@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2023.07.27.03
+// @version     2024.01.03.01
 // @include     https://*.waze.com/editor*
 // @include     https://*.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
@@ -13,7 +13,7 @@
 // 1) install this script as GitHub script
 // 2) Click on buttons on the sidebar to open selected map service with coordinates coming from WME
 
-var p2sm_version = "2023.07.27.03";
+var p2sm_version = "2024.01.03.01";
 //changes by Iridium1 (contact either PM or iridium1.waze@gmail.com)
 //01: Removed unneccessary buttons for DE
 //02: Added Bayernatlas, fixed Mapillary due to URL changes
@@ -40,6 +40,7 @@ var p2sm_version = "2023.07.27.03";
 //2023.07.27.01: Changed Link for Waze Reporting Tool (now PartnerHub)
 //2023.07.27.02: Fixed Command typo for new Reporting Tool Link
 //2023.07.27.03: Fixed Zoom with Reporting Tool Link
+//2024.01.03.01: Fixed Link in Reporting Tool (Partner Hub) again due to changes in URL
 
 /* eslint-env jquery */ //we are working with jQuery
 //indicate used variables to be assigned
@@ -480,7 +481,7 @@ btn18.click(function(){
 
 });
 
-    // Waze Reportingtool (Partner Hub): https://www.waze.com/partnerhub/tools/reporting-tool?lat=48.053457344200254&lon=11.06443238703241&zoom=18
+    // Waze Reportingtool (Partner Hub): https://www.waze.com/partnerhub/map-tool?lat=48.053457344200254&lon=11.06443238703241&zoom=18
     var btn20 = $('<button style="width: 90px;height: 24px;font-size:90%;color: LightSeaGreen;background-image: url(https://bit.ly/3jEtjWg);padding-left: 10px;padding-right: 2px;background-repeat: no-repeat;border-radius: 7px;title="Reporting">&nbsp;  Reporting</button>');
 btn20.click(function(){
     var href = $('.WazeControlPermalink a').attr('href');
@@ -490,7 +491,7 @@ btn20.click(function(){
      var zoom = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
      zoom = W.map.getOLMap().getZoom();
 
-     var mapsUrl = 'https://www.waze.com/partnerhub/tools/reporting-tool?lat=' + lat + '&lon=' + lon + '&zoom=' + zoom;
+     var mapsUrl = 'https://www.waze.com/partnerhub/map-tool?lat=' + lat + '&lon=' + lon + '&zoom=' + zoom;
      window.open(mapsUrl,'_blank');
 });
 
