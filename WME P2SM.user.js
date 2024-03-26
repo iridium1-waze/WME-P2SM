@@ -90,7 +90,7 @@ function add_Buttons() {
     var style = document.createElement('style')
     style.type = 'text/css'
     style.append('#sidepanel-p2sm > div { margin-bottom: 1em; }')
-    style.append('#sidepanel-p2sm button { color: inherit;text-align: left; padding-left: 23px; width: 31%; height: 27px; margin: 1.1%; font-size: 85%; font-weight:500; background-repeat: no-repeat; border-radius: 7px; border-color: LightGrey; border-width: thin; background-position: 2px, center }')
+    style.append('#sidepanel-p2sm button { color: inherit;text-align: left; padding-left: 23px; width: 30%; height: 27px; margin: 1.1%; font-size: 85%; font-weight:500; background-repeat: no-repeat; border-radius: 7px; border-color: LightGrey; border-width: thin; background-position: 2px, center }')
     style.append('#sidepanel-p2sm .txtbtn { width: 96%;text-align: center;font-weight: bold;border: 1px solid silver;background-color: ghostwhite; }')
     document.getElementsByTagName('head')[0].appendChild(style)
 
