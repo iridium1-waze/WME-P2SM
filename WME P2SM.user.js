@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2025.03.25.01
+// @version     2025.04.03.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -44,6 +44,7 @@
 //2024.01.03.01: Fixed Link in Reporting Tool (Partner Hub) again due to changes in URL
 //2024.03.24.01: Added DuckDuckGo (Apple), code simplification, Design changes
 //2024.03.25.01: Design and Icon changes
+//2024.04.03.01: Added Blitzer.de, Open Issue: SCDB positioning not yet working, at least page loads with defaults
 
 /* global W */
 /* global proj4 */
@@ -54,7 +55,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.03.25.01";
+var p2sm_version = "2024.04.03.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -90,7 +91,7 @@ function add_Buttons() {
     var style = document.createElement('style')
     style.type = 'text/css'
     style.append('#sidepanel-p2sm > div { margin-bottom: 1em; }')
-    style.append('#sidepanel-p2sm button { color: inherit;text-align: left; padding-left: 23px; width: 31%; height: 27px; margin: 1.1%; font-size: 85%; font-weight:500; background-repeat: no-repeat; border-radius: 7px; border-color: LightGrey; border-width: 1thin; background-position: 2px, center }')
+    style.append('#sidepanel-p2sm button { color: inherit;text-align: left; padding-left: 23px; width: 31%; height: 27px; margin: 1.1%; font-size: 83%; font-weight:500; background-repeat: no-repeat; border-radius: 7px; border-color: LightGrey; border-width: 1thin; background-position: 2px, center }')
     style.append('#sidepanel-p2sm .txtbtn { width: 96%;text-align: center;font-weight: bold;border: 1px solid silver;background-color: ghostwhite; }')
     document.getElementsByTagName('head')[0].appendChild(style)
 
@@ -174,11 +175,19 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
+    // https://map.atudo.com/v4/?lat=52.1548982153146&lng=10.4580277141803&zoom=30
+	var btn_blitzer_de = $('<button style="background-image: url(https://bit.ly/4aF5O9X);">Blitzer.de</button>')
+	btn_blitzer_de.click(() => {
+		var cz = getCenterZoom()
+		var mapsUrl = 'https://map.atudo.com/v4/?lat=' + cz.lat + '&lng=' + cz.lon + '&zoom=' + cz.zoom
+		window.open(mapsUrl, '_blank');
+	})
+	
     // http://map.scdb.info/speedcameramap/ll/51.563412,9.997559/z/12
     var btn_speedcam = $('<button style="background-image: url(https://bit.ly/2QNtBha);">SpeedCam</button>')
     btn_speedcam.click(() => {
         var cz = getCenterZoom()
-        var mapsUrl = 'http://map.scdb.info/speedcameramap/' + cz.lat + ',' + cz.lon
+        var mapsUrl = 'https://www.scdb.info/de/karte/'
         window.open(mapsUrl, '_blank');
     })
 
@@ -315,7 +324,8 @@ function add_Buttons() {
 
     $('#sidepanel-p2sm').append(divBlitzer)
     divBlitzer.append(txtbtn2) //  //  ■■■■■ "BLITZER" ■■■■■
-    divBlitzer.append(btn_speedcam) // Blitzer.de
+    divBlitzer.append(btn_speedcam) // SPEEDCAM DB
+	divBlitzer.append(btn_blitzer_de) // BLITZER.DE
     divBlitzer.append(btn_osmblitzer) // OSM BLITZER
 
     $('#sidepanel-p2sm').append(divBilder)
