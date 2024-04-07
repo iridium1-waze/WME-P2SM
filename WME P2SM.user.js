@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2025.04.03.01
+// @version     2024.04.07.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -45,6 +45,7 @@
 //2024.03.24.01: Added DuckDuckGo (Apple), code simplification, Design changes
 //2024.03.25.01: Design and Icon changes
 //2024.04.03.01: Added Blitzer.de, Open Issue: SCDB positioning not yet working, at least page loads with defaults
+//2024.04.07.01: Typo in version number
 
 /* global W */
 /* global proj4 */
@@ -55,7 +56,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.04.03.01";
+var p2sm_version = "2024.04.07.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
