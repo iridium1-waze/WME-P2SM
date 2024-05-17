@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.04.07.01
+// @version     2024.05.17.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -46,6 +46,7 @@
 //2024.03.25.01: Design and Icon changes
 //2024.04.03.01: Added Blitzer.de, Open Issue: SCDB positioning not yet working, at least page loads with defaults
 //2024.04.07.01: Typo in version number
+//2024.05.17.01: Quick-Fix for ViaMichelin - URL no longer working. ToDo: Work on zoom settings
 
 /* global W */
 /* global proj4 */
@@ -56,7 +57,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.04.07.01";
+var p2sm_version = "2024.05.17.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -134,12 +135,12 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-    // http://www.viamichelin.com/print/map?latitude=48.2638198&longitude=16.423198&zoom=16&address=&departure&arrival
+  //https://www.viamichelin.de/karten-stadtplan/verkehr?bounds=10.856722502563473~48.04212268258002~10.878523497436527~48.05778931741998&center=10.867623~48.049956&&detailedView=true&itinerary=&page=1&poiCategories=0
     var btn_vm = $('<button style="background-image: url(https://bit.ly/3hSLI0O);">ViaM</button>')
     btn_vm.click(() => {
         var cz = getCenterZoom()
         cz.zoom -= 1
-        var mapsUrl = 'http://www.viamichelin.de/web/Traffic?position=' + cz.lat + ';' + cz.lon + ';' + cz.zoom
+        var mapsUrl = 'https://www.viamichelin.de/karten-stadtplan/verkehr?bounds=' + cz.lon*1.0001 + '~' + cz.lat*1.0001 + '~' + cz.lon *0.9999 + '~' + cz.lat*0.9999 + '&center=' + cz.lon + '~' +cz.lat+ '&detailedView=true&itinerary=&page=1&poiCategories=0'
         window.open(mapsUrl, '_blank');
     })
 
