@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to permalink page on several Maps.
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.05.17.01
+// @version     2024.10.04.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -47,6 +47,7 @@
 //2024.04.03.01: Added Blitzer.de, Open Issue: SCDB positioning not yet working, at least page loads with defaults
 //2024.04.07.01: Typo in version number
 //2024.05.17.01: Quick-Fix for ViaMichelin - URL no longer working. ToDo: Work on zoom settings
+//2024.10.04.01: Added Lookmap
 
 /* global W */
 /* global proj4 */
@@ -57,7 +58,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.05.17.01";
+var p2sm_version = "2024.10.04.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -184,7 +185,7 @@ function add_Buttons() {
 		var mapsUrl = 'https://map.atudo.com/v4/?lat=' + cz.lat + '&lng=' + cz.lon + '&zoom=' + cz.zoom
 		window.open(mapsUrl, '_blank');
 	})
-	
+
     // http://map.scdb.info/speedcameramap/ll/51.563412,9.997559/z/12
     var btn_speedcam = $('<button style="background-image: url(https://bit.ly/2QNtBha);">SpeedCam</button>')
     btn_speedcam.click(() => {
@@ -277,6 +278,15 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
+    // https://lookmap.eu.pythonanywhere.com/#c=20/48.053487/11.064571&p=48.053487/11.064571&a=208.15/-5.87
+    var btn_lookmap = $('<button style="background-image: url(https://bit.ly/3XVRJA4);">Lookmap</button>')
+    btn_lookmap.click(() => {
+        var cz = getCenterZoom()
+        cz.zoom -= 1
+        var mapsUrl = 'https://lookmap.eu.pythonanywhere.com/#c=' + cz.zoom + '/' + cz.lat + '/' + cz.lon
+        window.open(mapsUrl, '_blank');
+    })
+
 
     // alert("Create Tab");
     let userTabs = document.getElementById('user-info')
@@ -323,6 +333,7 @@ function add_Buttons() {
     divAllgem.append(btn_tomtom) // TOMTOM
     divAllgem.append(btn_msn) // MSN
     divAllgem.append(btn_apple) // APPLE
+    divAllgem.append(btn_lookmap) //LOOKMAP
 
     $('#sidepanel-p2sm').append(divBlitzer)
     divBlitzer.append(txtbtn2) //  //  ■■■■■ "BLITZER" ■■■■■
