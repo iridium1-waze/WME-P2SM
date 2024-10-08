@@ -9,9 +9,9 @@
 // @match       https://beta.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
 // @license     MIT
-// @syncURL     https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js
-// @downloadURL https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js
-// @updateURL   https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.meta.js
+// @syncURL		https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js
+// @downloadURL	https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js
+// @updateURL	https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.meta.js
 // @grant       none
 // ==/UserScript==
 
