@@ -54,7 +54,7 @@
 //2024.10.04.01: Added Lookmap
 //2024.10.08.01: Added webhook for Greasy Fork - thanks to Dancingman81!
 //2024.10.08.02: Sync Link Fixed
-//2024.10.08.03: Changed Update Link to Greasy Fork
+//2024.10.08.03: Check Update Link fixed
 
 /* global W */
 /* global proj4 */
@@ -318,7 +318,7 @@ function add_Buttons() {
     let divGeoPort 	= $('<div id="p2sm-GeoPort" style="color: MediumBlue;"></div>')
     let divMisc 	= $('<div id="p2sm-Misc" style="color: LightSeaGreen;"></div>')
 
-    let txtinfo = $('<a href="https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
+    let txtinfo = $('<a href="https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
     let txtbtn1 = $('<button class="txtbtn">ALLGEMEINE KARTEN</button>')
     let txtbtn2 = $('<button class="txtbtn">BLITZER</button>')
     let txtbtn3 = $('<button class="txtbtn">GESCHWINDIGKEITEN / BILDER</button>')
