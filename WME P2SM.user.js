@@ -64,7 +64,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.10.08.02"
+var p2sm_version = "2024.10.08.02";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
