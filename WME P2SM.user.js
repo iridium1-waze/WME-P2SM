@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.10.08.03
+// @version     2024.10.08.02
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -54,7 +54,6 @@
 //2024.10.04.01: Added Lookmap
 //2024.10.08.01: Added webhook for Greasy Fork - thanks to Dancingman81!
 //2024.10.08.02: Sync Link Fixed
-//2024.10.08.03: Check Update Link fixed
 
 /* global W */
 /* global proj4 */
@@ -65,7 +64,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.10.08.03;
+var p2sm_version = "2024.10.08.02
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
