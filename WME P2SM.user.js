@@ -9,7 +9,7 @@
 // @match       https://beta.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
 // @license     MIT
-// @syncURL     https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js
+// @syncURL     https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
 // @downloadURL https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js
 // @updateURL   https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.meta.js
 // @grant       none
@@ -317,7 +317,7 @@ function add_Buttons() {
     let divGeoPort 	= $('<div id="p2sm-GeoPort" style="color: MediumBlue;"></div>')
     let divMisc 	= $('<div id="p2sm-Misc" style="color: LightSeaGreen;"></div>')
 
-    let txtinfo = $('<a href="https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
+    let txtinfo = $('<a href="https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
     let txtbtn1 = $('<button class="txtbtn">ALLGEMEINE KARTEN</button>')
     let txtbtn2 = $('<button class="txtbtn">BLITZER</button>')
     let txtbtn3 = $('<button class="txtbtn">GESCHWINDIGKEITEN / BILDER</button>')
