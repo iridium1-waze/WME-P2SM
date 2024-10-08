@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.10.08.02
+// @version     2024.10.08.03
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -54,6 +54,7 @@
 //2024.10.04.01: Added Lookmap
 //2024.10.08.01: Added webhook for Greasy Fork - thanks to Dancingman81!
 //2024.10.08.02: Sync Link Fixed
+//2024.10.08.03: Changed Update Link to Greasy Fork
 
 /* global W */
 /* global proj4 */
@@ -64,7 +65,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.10.08.02";
+var p2sm_version = "2024.10.08.03;
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -317,7 +318,7 @@ function add_Buttons() {
     let divGeoPort 	= $('<div id="p2sm-GeoPort" style="color: MediumBlue;"></div>')
     let divMisc 	= $('<div id="p2sm-Misc" style="color: LightSeaGreen;"></div>')
 
-    let txtinfo = $('<a href="https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
+    let txtinfo = $('<a href="https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js" target="_blank">P2SM V' + p2sm_version + ' - Check for Updates</a>')
     let txtbtn1 = $('<button class="txtbtn">ALLGEMEINE KARTEN</button>')
     let txtbtn2 = $('<button class="txtbtn">BLITZER</button>')
     let txtbtn3 = $('<button class="txtbtn">GESCHWINDIGKEITEN / BILDER</button>')
