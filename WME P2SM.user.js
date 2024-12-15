@@ -2,18 +2,18 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.10.08.03
+// @version     2024.12.15.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
 // @match       https://beta.waze.com/*/editor*
 // @icon        https://raw.githubusercontent.com/iridium1-waze/WME-Core-Files/master/map_icon.png
 // @syncURL     https://github.com/iridium1-waze/WME-P2SM/raw/main/WME-P2SM.user.js
-// @downloadURL https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.user.js
-// @updateURL   https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20Several%20Maps.meta.js
 // @license     MIT
 // @author		Iridium1
 // @grant       none
+// @downloadURL https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20several%20Maps.user.js
+// @updateURL https://update.greasyfork.org/scripts/511905/WME%20Permalink%20to%20several%20Maps.meta.js
 // ==/UserScript==
 
 // Mini howto:
@@ -56,6 +56,7 @@
 //2024.10.08.01: Added webhook for Greasy Fork - thanks to Dancingman81!
 //2024.10.08.02: Sync Link Fixed
 //2024.10.08.03: Check Link for Download adjusted to Greasy Fork
+//2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
 
 /* global W */
 /* global proj4 */
@@ -66,7 +67,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2024.10.08.03";
+var p2sm_version = "2024.12.15.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -178,11 +179,11 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-    // https://en.mappy.com/#/12/M2/THome/N0,0,15.69021,48.4738/Z19/
+    // https://en.mappy.com/plan#/49.041426495%2C9.144027995
     var btn_mappy = $('<button style="background-image: url(https://bit.ly/2EVea3B);">Mappy</button>')
     btn_mappy.click(() => {
         var cz = getCenterZoom()
-        var mapsUrl = 'https://en.mappy.com/plan#/' + cz.lat + ',' + cz.lon
+        var mapsUrl = 'https://en.mappy.com/plan#/' + cz.lat + '%2C' + cz.lon
         window.open(mapsUrl, '_blank');
     })
 
@@ -202,19 +203,11 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-    // https://www.msn.com/de-de/traffic?locale=de-de&cp=51.23013,%206.82414&lvl=19&sty=h
-    var btn_msn = $('<button style="background-image: url(https://bit.ly/3wxLfeH);">MSN</button>')
-    btn_msn.click(() => {
-        var cz = getCenterZoom()
-        var mapsUrl = 'https://www.msn.com/de-de/traffic?locale=de-de&cp=' + cz.lat + ',%20' + cz.lon + '&lvl=' + cz.zoom
-        window.open(mapsUrl, '_blank');
-    })
-
-    // https://geoportal.bayern.de/bayernatlas/index.html?zoom=9&lang=de&topic=ba&bgLayer=atkis&catalogNodes=11,122&E=639436.74&N=5324591.68
+    // https://atlas.bayern.de/?c=628328,5321528&z=17.54&r=0&l=atkis&t=ba
     var btn_byatlas = $('<button style="background-image: url(https://bit.ly/2YXn1sK);">BY Atlas</button>')
     btn_byatlas.click(() => {
         var cz = getCenterZoom()
-        cz.zoom -= 5
+        cz.zoom -= 0.5
 
         if (!proj4) {
             console.log('proj4 not loaded :-(')
@@ -223,7 +216,7 @@ function add_Buttons() {
 
         var firstProj = '+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
         var utm = proj4(firstProj, [cz.lon, cz.lat])
-        var mapsUrl = 'https://geoportal.bayern.de/bayernatlas/index.html?zoom=' + cz.zoom + '&E=' + utm[0] + '&N=' + utm[1]
+        var mapsUrl = 'https://atlas.bayern.de/?c=' + utm[0] + ',' + utm[1] + '&z=' + cz.zoom + '&r=0&l=atkis&t=ba'
         window.open(mapsUrl, '_blank');
     })
 
@@ -339,7 +332,6 @@ function add_Buttons() {
     divAllgem.append(btn_here) // HERE
     divAllgem.append(btn_mappy) // MAPPY
     divAllgem.append(btn_tomtom) // TOMTOM
-    divAllgem.append(btn_msn) // MSN
     divAllgem.append(btn_apple) // APPLE
     divAllgem.append(btn_lookmap) //LOOKMAP
 
