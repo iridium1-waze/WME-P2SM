@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2024.12.15.01
+// @version     2025.08.02.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -57,6 +57,7 @@
 //2024.10.08.02: Sync Link Fixed
 //2024.10.08.03: Check Link for Download adjusted to Greasy Fork
 //2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
+//2025.08.02.01: Updated Link for Bayerninfo and fixed an issue with the location placement
 
 /* global W */
 /* global proj4 */
@@ -264,18 +265,25 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-    // https://bayerninfo.de/de/baustellenkalender?geo=48.084776,11.196357&zoom=16
+    // https://bayerninfo.de/de/baustellenkalender?bounds=48.088327%2C11.186653%2C48.081225%2C11.206061
     var btn_byinfo = $('<button style="background-image: url(https://bit.ly/2Y3CfyA);">Bayerninfo</button>')
     btn_byinfo.click(() => {
         var cz = getCenterZoom()
-        cz.zoom -= 2
+	var latOffset = 0.01;
+    var lonOffset = 0.01;
+    var northLat = cz.lat + latOffset;
+    var southLat = cz.lat - latOffset;
+    var eastLon = cz.lon + lonOffset;
+    var westLon = cz.lon - lonOffset;
+    var bounds = southLat + '%2C' + westLon + '%2C' + northLat + '%2C' + eastLon;
+    var now = new Date();
+    var then = new Date()
+    then.setDate(then.getDate() + 28)
+	var fromDate = now.toISOString().replace(/:/g, '%3A');
+	var toDate = then.toISOString().replace(/:/g, '%3A');
 
-        var now = new Date()
-        var then = new Date()
-        then.setDate(then.getDate() + 60)
-
-        let mapsUrl = 'https://www.bayerninfo.de/de/baustellenkalender?geo=' + cz.lat + ',' + cz.lon + '&zoom=' + cz.zoom
-        mapsUrl = mapsUrl + '&datetimeFrom=' + now.toISOString() + '&datetimeTo=' + then.toISOString()
+        let mapsUrl = 'https://www.bayerninfo.de/de/baustellenkalender?bounds=' + bounds;
+         mapsUrl += '&datetimeFrom=' + fromDate + '&datetimeTo=' + toDate;
         window.open(mapsUrl, '_blank');
     })
 
