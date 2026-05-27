@@ -62,8 +62,7 @@
 //2024.10.08.03: Check Link for Download adjusted to Greasy Fork
 //2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
 //2025.08.02.01: Updated Link for Bayerninfo and fixed an issue with the location placement
-//2026.05.27.01: New Link for Apple Lookmap - thanks to derLipper and pox_online!
-//2026.05.27.01: Changed lookmap link to the new domain (LOOKMAP Button) - Thanks to derLipper and pox_online!
+//2026.05.27.01: Changed lookmap link to new URL - Thanks to derLipper and pox_online! Adjusted Zoom-Level
 
 /* global W */
 /* global proj4 */
