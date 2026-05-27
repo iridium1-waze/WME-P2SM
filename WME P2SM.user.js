@@ -2,7 +2,11 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
+<<<<<<< HEAD
 // @version     2026.02.07.01
+=======
+// @version     2026.05.27.01
+>>>>>>> 4f5a50e1025e0256410fca04fa51aa7012e05948
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -59,6 +63,7 @@
 //2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
 //2025.08.02.01: Updated Link for Bayerninfo and fixed an issue with the location placement
 //2026.05.27.01: New Link for Apple Lookmap - thanks to derLipper and pox_online!
+//2026.05.27.01: Changed lookmap link to the new domain (LOOKMAP Button) - Thanks to derLipper and pox_online!
 
 /* global W */
 /* global proj4 */
