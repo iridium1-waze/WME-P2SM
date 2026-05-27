@@ -302,7 +302,6 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-
     // alert("Create Tab");
     let userTabs = document.getElementById('user-info')
     let navTabs = document.getElementsByClassName('nav-tabs', userTabs)[0]
