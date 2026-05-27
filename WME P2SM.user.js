@@ -2,11 +2,8 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-<<<<<<< HEAD
 // @version     2026.02.07.01
-=======
-// @version     2026.05.27.01
->>>>>>> 4f5a50e1025e0256410fca04fa51aa7012e05948
+
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
