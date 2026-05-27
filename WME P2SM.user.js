@@ -58,7 +58,7 @@
 //2024.10.08.03: Check Link for Download adjusted to Greasy Fork
 //2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
 //2025.08.02.01: Updated Link for Bayerninfo and fixed an issue with the location placement
-//2026.02.07.01: New Liknk for Apple Lookmap - thanks to MarcelMengedoht!
+//2026.05.27.01: New Link for Apple Lookmap - thanks to derLipper and pox_online!
 
 /* global W */
 /* global proj4 */
@@ -69,7 +69,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2026.02.07.01";
+var p2sm_version = "2026.05.27.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -289,13 +289,13 @@ function add_Buttons() {
     })
 
     // old: https://lookmap.eu.pythonanywhere.com/#c=20/48.053487/11.064571&p=48.053487/11.064571&a=208.15/-5.87
-	// new: https://maps.apple.com/look-around?coordinate=54.29468224938031%2C12.360166605781103
- 
+	// new: https://https://lookmap.skzk.dev/#c=20/48.053532/11.064585
+
     var btn_lookmap = $('<button style="background-image: url(https://bit.ly/3XVRJA4);">Lookmap</button>')
     btn_lookmap.click(() => {
         var cz = getCenterZoom()
-        cz.zoom -= 1
-        var mapsUrl = 'https://maps.apple.com/look-around?coordinate=' + cz.lat + '&' + cz.lon
+        cz.zoom +1
+        var mapsUrl = ' https://lookmap.skzk.dev/#c=' + cz.zoom + '/' + cz.lat + '/' + cz.lon ;
         window.open(mapsUrl, '_blank');
     })
 
