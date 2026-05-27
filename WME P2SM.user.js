@@ -298,7 +298,7 @@ function add_Buttons() {
     var btn_lookmap = $('<button style="background-image: url(https://bit.ly/3XVRJA4);">Lookmap</button>')
     btn_lookmap.click(() => {
         var cz = getCenterZoom()
-        cz.zoom +1
+        cz.zoom = cz.zoom + 1
         var mapsUrl = ' https://lookmap.skzk.dev/#c=' + cz.zoom + '/' + cz.lat + '/' + cz.lon ;
         window.open(mapsUrl, '_blank');
     })
