@@ -2,7 +2,7 @@
 // @name        WME Permalink to several Maps
 // @description This script creates buttons to open pages of several other maps based on the WME coordinates
 // @namespace   https://github.com/iridium1-waze/WME-P2SM/blob/master/WME%20P2SM.user.js
-// @version     2025.08.02.01
+// @version     2026.05.27.01
 // @match       https://*.waze.com/editor*
 // @match       https://*.waze.com/*/editor*
 // @match       https://beta.waze.com/editor*
@@ -58,6 +58,7 @@
 //2024.10.08.03: Check Link for Download adjusted to Greasy Fork
 //2024.12.15.01: Fixed Mappy Link. (No feedback regarding zoom factor), updated Link to Geoportal Bayern, removed msn (no longer showning traffic data), same is on bing anyway.
 //2025.08.02.01: Updated Link for Bayerninfo and fixed an issue with the location placement
+//2026.05.27.01: Changed lookmap link to the new domain (LOOKMAP Button)
 
 /* global W */
 /* global proj4 */
@@ -68,7 +69,7 @@
 
 // indicate used variables to be assigned
 
-var p2sm_version = "2025.08.02.01";
+var p2sm_version = "2026.05.27.01";
 
 function getCenterZoom() {
     var map = W.map.getOLMap()
@@ -287,12 +288,12 @@ function add_Buttons() {
         window.open(mapsUrl, '_blank');
     })
 
-    // https://lookmap.eu.pythonanywhere.com/#c=20/48.053487/11.064571&p=48.053487/11.064571&a=208.15/-5.87
+    // https://lookmap.skzk.dev/#c=17/51.264893/7.184404
     var btn_lookmap = $('<button style="background-image: url(https://bit.ly/3XVRJA4);">Lookmap</button>')
     btn_lookmap.click(() => {
         var cz = getCenterZoom()
         cz.zoom -= 1
-        var mapsUrl = 'https://lookmap.eu.pythonanywhere.com/#c=' + cz.zoom + '/' + cz.lat + '/' + cz.lon
+        var mapsUrl = 'https://lookmap.skzk.dev/#c=' + cz.zoom + '/' + cz.lat + '/' + cz.lon
         window.open(mapsUrl, '_blank');
     })
 
